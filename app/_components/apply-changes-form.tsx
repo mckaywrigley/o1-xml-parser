@@ -36,33 +36,41 @@ export function ApplyChangesForm() {
   };
 
   return (
-    <div className="max-w-xl w-full mx-auto p-4 flex flex-col gap-4">
-      {errorMessage && <div className="text-red-500">{errorMessage}</div>}
-      {successMessage && <div className="text-green-500">{successMessage}</div>}
-      <div className="flex flex-col">
-        <label className="mb-2 font-bold">Project Directory:</label>
+    <div className="max-w-2xl w-full mx-auto p-6 flex flex-col gap-6">
+      {errorMessage && (
+        <div className="bg-destructive/10 text-destructive p-3 rounded-lg text-sm">
+          {errorMessage}
+        </div>
+      )}
+      {successMessage && (
+        <div className="bg-primary/10 text-primary p-3 rounded-lg text-sm">
+          {successMessage}
+        </div>
+      )}
+      <div className="flex flex-col gap-2">
+        <label>Project Directory</label>
         <input
-          className="border p-2 w-full"
+          className="w-full p-3"
           type="text"
           value={projectDirectory}
           onChange={(e) => setProjectDirectory(e.target.value)}
           placeholder="e.g. /Users/myusername/projects/o1-xml-parser"
         />
       </div>
-      <div className="flex flex-col">
-        <label className="mb-2 font-bold">Paste XML here:</label>
+      <div className="flex flex-col gap-2">
+        <label>Paste XML Here:</label>
         <textarea
-          className="border p-2 h-64 w-full"
+          className="w-full p-3 h-[400px] font-mono text-sm"
           value={xml}
           onChange={(e) => setXml(e.target.value)}
           placeholder="Paste the <code_changes>...</code_changes> XML here"
         />
       </div>
       <button
-        className="bg-primary text-primary-foreground p-2 rounded"
+        className="bg-primary text-primary-foreground py-3 px-4 rounded-lg w-full"
         onClick={handleApply}
       >
-        Apply
+        Apply Changes
       </button>
     </div>
   );
