@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { dirname, join } from "path";
+import { dirname, join, isAbsolute, relative } from "path";
 
 interface FileChange {
   file_summary: string;
@@ -10,7 +10,12 @@ interface FileChange {
 
 export async function applyFileChanges(change: FileChange, projectDirectory: string) {
   const { file_operation, file_path, file_code } = change;
-  const fullPath = join(projectDirectory, file_path);
+
+  const finalFilePath = isAbsolute(file_path)
+      ? relative(projectDirectory, file_path)
+      : file_path;
+
+  const fullPath = join(projectDirectory, finalFilePath);
 
   switch (file_operation.toUpperCase()) {
     case "CREATE":
