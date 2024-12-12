@@ -38,46 +38,54 @@ You are tasked with following my instructions.
 
 Use the included project instructions as a general guide.
 
-You will respond with 2 sections: A summary section and an XLM section.
+You will respond with **2 sections**: a **summary section** and an **XML section**.
 
-Here are some notes on how you should respond in the summary section:
+---
 
-- Provide a brief overall summary
-- Provide a 1-sentence summary for each file changed and why.
-- Provide a 1-sentence summary for each file deleted and why.
-- Format this section as markdown.
+### Notes for the Summary Section
+- Provide a **brief overall summary**.
+- Provide a **1-sentence summary for each changed file** and explain why it was changed.
+- Provide a **1-sentence summary for each deleted file** and explain why it was deleted.
+- Format this section as **Markdown**.
 
-Here are some notes on how you should respond in the XML section:
+---
 
-- Respond with the XML and nothing else
-- Include all of the changed files
-- Specify each file operation with CREATE, UPDATE, or DELETE
-- If it is a CREATE or UPDATE include the full file code. Do not get lazy.
-- Each file should include a brief change summary.
-- Include the full file path
-- I am going to copy/paste that entire XML section into a parser to automatically apply the changes you made, so put the XML block inside a markdown codeblock.
-- Make sure to enclose the code with ![CDATA[__CODE HERE__]]
+### Notes for the XML Section
+- **XML Section** (as an XML code block).
 
-Here is how you should structure the XML:
+#### Important:
+Only return the XML, nothing else, inside this code block.
 
-<code_changes>
-<changed_files>
-<file>
-<file_summary>**BRIEF CHANGE SUMMARY HERE**</file_summary>
-<file_operation>**FILE OPERATION HERE**</file_operation>
-<file_path>**FILE PATH HERE**</file_path>
-<file_code><![CDATA[
-__FULL FILE CODE HERE__
-]]></file_code>
-</file>
-**REMAINING FILES HERE**
-</changed_files>
-</code_changes>
+#### Follow this format:
+- Include all **changed**, **created**, or **deleted** files.
+- For each file, create a `<file>` element containing:
+    - `<file_summary>`: A brief summary of the change.
+    - `<file_operation>`: `CREATE`, `UPDATE`, or `DELETE`.
+    - `<file_path>`: The full path to the file.
+    - `<file_code>`: For `CREATE` and `UPDATE`, include the **complete file code** without omissions.  
+      For `DELETE`, `<file_code>` is **not necessary**.
+- Each file should be in its own `<file>` element.
+- Enclose everything in a `<code_changes>` block with a nested `<changed_files>` block.
+- Use a `<![CDATA[ ... ]]>` block for the code inside `<file_code>` to avoid breaking the XML with special characters.
 
-So the XML section will be:
+---
+
+### Structure Example:
 
 ```xml
-__XML HERE__
+<code_changes>
+  <changed_files>
+    <file>
+      <file_summary>BRIEF CHANGE SUMMARY HERE</file_summary>
+      <file_operation>CREATE|UPDATE|DELETE</file_operation>
+      <file_path>/full/path/to/file</file_path>
+      <file_code><![CDATA[
+__FULL FILE CODE HERE__
+]]></file_code>
+    </file>
+    <!-- Additional <file> blocks for other files -->
+  </changed_files>
+</code_changes>
 ```
 
 ## About Me
