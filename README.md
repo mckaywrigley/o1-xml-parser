@@ -29,6 +29,10 @@ cp .env.example .env.local
 ```bash
 PROJECT_DIRECTORY=/path/to/your/project # Ex: /Users/you/your-project
 ```
+4. Run the xml parser
+```bash
+npm run dev
+```
 
 ## The XML Prompt
 
