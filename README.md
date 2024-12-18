@@ -54,7 +54,7 @@ Here are some notes on how you should respond in the XML section:
 - Specify each file operation with CREATE, UPDATE, or DELETE
 - If it is a CREATE or UPDATE include the full file code. Do not get lazy.
 - Each file should include a brief change summary.
-- Include the full file path
+- Include only the local file path. Do not include the full root path.
 - I am going to copy/paste that entire XML section into a parser to automatically apply the changes you made, so put the XML block inside a markdown codeblock.
 - Make sure to enclose the code with ![CDATA[__CODE HERE__]]
 
