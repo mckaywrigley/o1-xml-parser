@@ -30,6 +30,14 @@ cp .env.example .env.local
 PROJECT_DIRECTORY=/path/to/your/project # Ex: /Users/you/your-project
 ```
 
+4. run on commad line 
+```bash
+npm install
+npm link
+
+o1-xml-parser <xml-code-changes-file> <project-directory>
+```
+
 ## The XML Prompt
 
 You are an expert software engineer.
