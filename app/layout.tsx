@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "O1 XML Parser",
-  description: "A utility to parse XML from OpenAI's O1 model responses"
+  title: "o1 XML Parser",
+  description: "A utility to parse XML from OpenAI's o1 model responses"
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
