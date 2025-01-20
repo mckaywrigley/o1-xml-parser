@@ -30,6 +30,15 @@ cp .env.example .env.local
 PROJECT_DIRECTORY=/path/to/your/project # Ex: /Users/you/your-project
 ```
 
+4. Build and Run
+```bash
+npm run build
+```
+
+```bash
+npm start
+``` 
+
 ## The XML Prompt (updated 1/12/25)
 
 Present a complete plan to solve the problem and implement it in the codebase.
