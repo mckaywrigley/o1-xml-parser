@@ -1,5 +1,5 @@
 import { promises as fs } from "fs";
-import { dirname, join } from "path";
+import { dirname, resolve } from "path";
 
 interface FileChange {
   file_summary: string;
@@ -10,27 +10,32 @@ interface FileChange {
 
 export async function applyFileChanges(change: FileChange, projectDirectory: string) {
   const { file_operation, file_path, file_code } = change;
-  const fullPath = join(projectDirectory, file_path);
+
+  const resolvedProjectDir = resolve(projectDirectory);
+  const resolvedFilePath = resolve(resolvedProjectDir, file_path);
+  if (!resolvedFilePath.startsWith(resolvedProjectDir)) {
+    throw new Error(`Security check failed: ${file_path} is outside of the project directory.`);
+  }
 
   switch (file_operation.toUpperCase()) {
     case "CREATE":
       if (!file_code) {
         throw new Error(`No file_code provided for CREATE operation on ${file_path}`);
       }
-      await ensureDirectoryExists(dirname(fullPath));
-      await fs.writeFile(fullPath, file_code, "utf-8");
+      await ensureDirectoryExists(dirname(resolvedFilePath));
+      await fs.writeFile(resolvedFilePath, file_code, "utf-8");
       break;
 
     case "UPDATE":
       if (!file_code) {
         throw new Error(`No file_code provided for UPDATE operation on ${file_path}`);
       }
-      await ensureDirectoryExists(dirname(fullPath));
-      await fs.writeFile(fullPath, file_code, "utf-8");
+      await ensureDirectoryExists(dirname(resolvedFilePath));
+      await fs.writeFile(resolvedFilePath, file_code, "utf-8");
       break;
 
     case "DELETE":
-      await fs.rm(fullPath, { force: true });
+      await fs.rm(resolvedFilePath, { force: true });
       break;
 
     default:
